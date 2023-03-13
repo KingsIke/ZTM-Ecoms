@@ -1,4 +1,4 @@
-// 74
+
 // import './categories.style.scss';
 // import CategoryItem from './components/category-item/category-item.component';
 import Home from './Pages/Home/Home';
