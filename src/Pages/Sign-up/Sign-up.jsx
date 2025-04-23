@@ -4,6 +4,9 @@ import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '
 
 // import { FormInput } from '../FormInput/form-FormInput.component';
 import FormInput from '../FormInput/Form-input';
+import "./Sign-up.scss"
+import Button from '../../components/Button/button.component';
+
 const defaultFormField = {
     displayName: '',
     email: '',
@@ -85,10 +88,10 @@ const SignUpForm = () => {
                     name="confirmPassword"
                     value={confirmPassword}
                 />
-                <button type="submit">Sign Up</button>
+                <Button buttonType={'inverted'} type="submit">Sign Up</Button>
             </form >
         </div>
-    );
+    )
 }
 
 export default SignUpForm; 
