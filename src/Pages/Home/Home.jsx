@@ -7,7 +7,7 @@ function Home() {
   const categories = [
     {
       id: 1,
-      title: "hats",
+      title: "hat",
       imageUrl: "https://i.ibb.co/cvpntL1/hats.png",
     },
     {

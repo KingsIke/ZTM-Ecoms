@@ -1,47 +1,92 @@
-// import { useEffect } from 'react';
-// import { getRedirectResult } from 'firebase/auth'
+import { useState } from 'react';
 
-import { signInWithGooglePopup, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils'
-import { async } from '@firebase/util';
-import SignUpForm from "../Sign-up/Sign-up"
+import { createAuthUserWithEmailAndPassword,signInWithGooglePopup,  createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword } from '../../utils/firebase/firebase.utils';
 
-const SignIn = () => {
+import FormInput from '../FormInput/Form-input';
+import "./Sign-in.scss"
+import Button from '../../components/Button/button.component';
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
+const defaultFormField = {
+    email: '',
+    password: '',
+}
+const SignInForm = () => {
+    const [formField, setFormField] = useState(defaultFormField)
+    const { email, password } = formField
 
-    //         const response = await getRedirectResult(auth)
-    //         if (response) {
-    //             const userDocRef = await createUserDocumentFromAuth(response.user)
-    //         }
-    //         console.log(response)
-    //     }
-    //     fetchData()
-    // }, []);
+    // console.log(formField)
 
-    const logGoogleUser = async () => {
-        const { user } = await signInWithGooglePopup();
-        const userDocRef = await createUserDocumentFromAuth(user)
-        console.log(user)
+    const resetFormFields = () => {
+        setFormField(defaultFormField)
     }
 
-    // const logGoogleRedirectUser = async () => {
-    //     const { user } = await signInWithGoogleRedirect();
-    //     console.log(user)
-    // }
+    const logInGoogleUser = async () => {
+        const { user } = await signInWithGooglePopup();
+        await createUserDocumentFromAuth(user)
+        console.log(user)
+      
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        try {
+            const response = await signInAuthUserWithEmailAndPassword(email, password)
+            console.log("...........",response)
+            resetFormFields()
+        } catch (error) {
+            console.error("Error signing in", error);
+            switch (error.code) {
+                case 'auth/wrong-password':
+                    alert("The password is incorrect. Please try again.");
+                    break;
+                case 'auth/user-not-found':
+                    alert("No user found with this email.");
+                    break;
+                default:
+                    alert("An error occurred. Please try again.");
+            }
+        }
+    }
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setFormField({ ...formField, [name]: value })
+    }
     return (
-        <div>
+        <div className="sign-in-container">
+            <h2>Already have an account?</h2>
+            <span>Sign in with your email and password</span>
+            <form onSubmit={handleSubmit}>
+                
+                <FormInput
+                    label="Email"
+                    type="email"
+                    required
+                    onChange={handleChange}
+                    name="email"
+                    value={email}
+                />
 
-            <h1>
-                Sign In Page
-            </h1>
-            <button onClick={logGoogleUser}>Sign in with Google Popup</button>
-            {/* <button onClick={logGoogleRedirectUser}>Sign in with Google Redirect</button> */}
-            {/* <button onClick={signInWithGoogleRedirect}>Sign in with Google Redirect</button> */}
+                <FormInput
+                    label="Password"
+                    type="password"
+                    required
+                    onChange={handleChange}
+                    name="password"
+                    value={password}
+                />
+                <div className='buttons-container'>
 
-            <SignUpForm />
+                <Button buttonType='inverted' type="submit">Sign In</Button>
+                
+                <Button buttonType='google' onClick={logInGoogleUser}>Google Sign in</Button>
 
+                </div>
+            
+            </form >
         </div>
     )
 }
-export default SignIn
+
+export default SignInForm; 
