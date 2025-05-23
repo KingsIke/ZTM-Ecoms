@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, linkWithCredential, EmailAuthProvider } from 'firebase/auth'
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
 const firebaseConfig = {
     apiKey: "AIzaSyCR5oSYvuw7hupQVNlnXLxKuzq-M8QICFI",
@@ -59,3 +59,22 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
     }
     return await signInWithEmailAndPassword(auth, email, password)
 }
+export const linkEmailAndPasswordToGoogleAccount = async (email, password) => {
+    const currentUser = auth.currentUser;
+    console.log("Current user trying to link:", auth.currentUser);
+    if (!currentUser) {
+      throw new Error("No user is currently signed in.");
+    }
+  
+    const credential = EmailAuthProvider.credential(email, password);
+  
+    try {
+      const usercred = await linkWithCredential(currentUser, credential);
+      console.log("Account linking success", usercred.user);
+      return usercred.user;
+    } catch (error) {
+      console.error("Account linking error", error);
+      throw error;
+    }
+  };
+  
