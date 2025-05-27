@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, linkWithCredential, EmailAuthProvider } from 'firebase/auth'
+import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, linkWithCredential, EmailAuthProvider, signOut } from 'firebase/auth'
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
 const firebaseConfig = {
     apiKey: "AIzaSyCR5oSYvuw7hupQVNlnXLxKuzq-M8QICFI",
@@ -78,3 +78,7 @@ export const linkEmailAndPasswordToGoogleAccount = async (email, password) => {
     }
   };
   
+  export const signOutUser = async () => {
+
+    return await signOut(auth)
+}

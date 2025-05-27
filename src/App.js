@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 import Nav from "./Pages/Navigation/Navigation"
 import Authentication from './Pages/Sign-In/authentication';
-import SignUpForm from './Pages/Sign-up/Sign-up';
+// import SignUpForm from './Pages/Sign-up/Sign-up';
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
           <Route path='/' element={<Home />} />
           {/* <Route path='/shop' element={<Shop />} /> */}
           <Route path='/authentication' element={<Authentication />} />
-          <Route path='/sign-up' element={<SignUpForm />} />
+          {/* <Route path='/sign-up' element={<SignUpForm />} /> */}
 
 
         </Routes>
