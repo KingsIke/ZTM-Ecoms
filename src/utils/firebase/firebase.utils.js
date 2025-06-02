@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, linkWithCredential, EmailAuthProvider, signOut } from 'firebase/auth'
+import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, linkWithCredential, EmailAuthProvider, signOut, onAuthStateChanged } from 'firebase/auth'
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
 const firebaseConfig = {
     apiKey: "AIzaSyCR5oSYvuw7hupQVNlnXLxKuzq-M8QICFI",
@@ -63,22 +63,25 @@ export const linkEmailAndPasswordToGoogleAccount = async (email, password) => {
     const currentUser = auth.currentUser;
     console.log("Current user trying to link:", auth.currentUser);
     if (!currentUser) {
-      throw new Error("No user is currently signed in.");
+        throw new Error("No user is currently signed in.");
     }
-  
+
     const credential = EmailAuthProvider.credential(email, password);
-  
+
     try {
-      const usercred = await linkWithCredential(currentUser, credential);
-      console.log("Account linking success", usercred.user);
-      return usercred.user;
+        const usercred = await linkWithCredential(currentUser, credential);
+        console.log("Account linking success", usercred.user);
+        return usercred.user;
     } catch (error) {
-      console.error("Account linking error", error);
-      throw error;
+        console.error("Account linking error", error);
+        throw error;
     }
-  };
-  
-  export const signOutUser = async () => {
+};
+
+export const signOutUser = async () => {
 
     return await signOut(auth)
 }
+export const onAuthStateChangedListener = (callback) => {
+    return onAuthStateChanged(auth, callback); // This should return an unsubscribe function
+};

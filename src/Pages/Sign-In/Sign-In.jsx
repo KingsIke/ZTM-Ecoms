@@ -1,4 +1,4 @@
-import { useState,useContext } from 'react';
+import { useState } from 'react';
 
 import { createAuthUserWithEmailAndPassword,signInWithGooglePopup,  createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword, linkEmailAndPasswordToGoogleAccount  } from '../../utils/firebase/firebase.utils';
 
@@ -15,8 +15,7 @@ const SignInForm = () => {
     const [formField, setFormField] = useState(defaultFormField)
     const { email, password } = formField
 
-    const {setCurrentUser} = useContext(UserContext);
-    // console.log(formField)
+
 
     const resetFormFields = () => {
         setFormField(defaultFormField)
@@ -27,7 +26,7 @@ const SignInForm = () => {
         try {
             const {user} = await signInAuthUserWithEmailAndPassword(email, password)
           console.log("User authenticated:", user);
-          setCurrentUser(user)
+        //   setCurrentUser(user)
             resetFormFields()
         } catch (error) {
             console.error("Error signing in", error);
@@ -51,8 +50,10 @@ const SignInForm = () => {
     }
     const logInGoogleUser = async () => {
         try {
-          const { user } = await signInWithGooglePopup();
-          await createUserDocumentFromAuth(user);
+        //   const { user } = 
+          await signInWithGooglePopup();
+        //   setCurrentUser(user)
+        //   await createUserDocumentFromAuth(user);
       
           // Now try linking the email/password
           if (email && password) {
