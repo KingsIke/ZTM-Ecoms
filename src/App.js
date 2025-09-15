@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 import Nav from "./Pages/Navigation/Navigation"
 import Authentication from './Pages/Sign-In/authentication';
+import Shop from './Pages/Shop/Shop.component'
 // import SignUpForm from './Pages/Sign-up/Sign-up';
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
         <Nav />
         <Routes>
           <Route path='/' element={<Home />} />
-          {/* <Route path='/shop' element={<Shop />} /> */}
+          <Route path='/shop' element={<Shop />} />
           <Route path='/authentication' element={<Authentication />} />
           {/* <Route path='/sign-up' element={<SignUpForm />} /> */}
 
