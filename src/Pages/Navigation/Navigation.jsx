@@ -1,7 +1,9 @@
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { ReactComponent as NavLogo } from '../../assets/crown.svg'
-import './Navigation.style.scss'
+import './Navigation.style.scss';
+import CartIcon from '../../components/CartIcon/CartIcon';
+import CardDropDown  from '../../components/CartDropdown/CardDropDown';
 import { UserContext } from '../../contexts/user.context'
 import {signOutUser} from '../../utils/firebase/firebase.utils'
 const Navigation = () => {
@@ -30,7 +32,9 @@ const Navigation = () => {
                 )}
                
 
+            <CartIcon/>
             </div>
+            <CardDropDown />
         </div >
     )
 }
