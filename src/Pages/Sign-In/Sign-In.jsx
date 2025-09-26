@@ -4,7 +4,7 @@ import { createAuthUserWithEmailAndPassword,signInWithGooglePopup,  createUserDo
 
 import FormInput from '../FormInput/Form-input';
 import "./Sign-in.scss"
-import Button from '../../components/Button/button.component';
+import Button from '../../components/Button/Button.component';
 import { UserContext } from '../../contexts/user.context';
 
 const defaultFormField = {

@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils';
 import FormInput from '../FormInput/Form-input';
 import "./Sign-up.scss"
-import Button from '../../components/Button/button.component';
+import Button from '../../components/Button/Button.component';
 import { UserContext } from '../../contexts/user.context';
 
 
