@@ -4,11 +4,11 @@ import { getCategoriesAndDocuments } from "../utils/firebase/firebase.utils";
 // import { addCollectionAndDocuments } from "../utils/firebase/firebase.utils.js";
 
 export const ProductContext = createContext({
-    products: [],
+    categoriesMap: {},
 });
 
-export const ProductsProvider = ({children}) => {
-    const [products, setProducts] = useState([]);
+export const  ProductsProvider = ({children}) => {
+    const [categoriesMap, setCategoriesMap] = useState({});
 
     // FOR CREATING THE COLLECTION IN DB
 
@@ -22,14 +22,14 @@ export const ProductsProvider = ({children}) => {
                 const categoryMap = await getCategoriesAndDocuments();
             console.log(categoryMap);
 
-                // setProducts(categoryMap); // Update state with categoryMap
+                setCategoriesMap(categoryMap); // Update state with categoryMap
             } catch (error) {
                 console.error("Error fetching categories:", error);
             }
         };
         getCategoriesMap();
     }, []);
-    const value = { products };
+    const value = { categoriesMap };
 
     return (
         <ProductContext.Provider value={value}>

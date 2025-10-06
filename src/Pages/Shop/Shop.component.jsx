@@ -1,31 +1,34 @@
-// import SHOP_DATA from '../../shop-data.json';
-
-// const Shop = () => {
-//   return (
-//     <>
-//       {SHOP_DATA.map(({ id, name }) => (
-//         <div key={id}>
-//           <h1>{name}</h1>
-//         </div>
-//       ))}
-//     </>
-//   );
-// };
-
-// export default Shop;
-
-import { useContext } from "react";
-import  {ProductContext} from "../../contexts/products.context"
+import { useContext, Fragment } from "react";
+import  {ProductContext} from "../../contexts/products.context.jsx"
 import ProductCard from "../../components/ProductCards/ProductCard";
 import './Shop.style.scss'
- const Shop = () => {
-  const {products } = useContext(ProductContext)
-  return (
-    <div className="product-container">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product}/>
-      ))}
-    </div>
+import CategoriesPreview from '../../components/CategoryPreview/CategoryPreview.jsx'
+import { Route, Routes } from "react-router-dom";
+import Category from '../Categories/Category.jsx'
+
+
+const Shop = () => {
+  // const {categoriesMap } = useContext(ProductContext)
+
+  //   return (
+  //   <Fragment>
+  //     {Object.keys(categoriesMap).map((title) => (
+  //       <Fragment key={title}>
+  //         <h2>{title}</h2>
+  //         <div className='product-container'>
+  //           {categoriesMap[title].map((product) => (
+  //             <ProductCard key={product.id} product={product} />
+  //           ))}
+  //         </div>
+  //       </Fragment>
+  //     ))}
+  //   </Fragment>
+  // );
+return (
+    <Routes>
+      <Route index element={<CategoriesPreview />} />
+      <Route path=':category' element={<Category />} />
+    </Routes>
   );
 };
 export default Shop;
