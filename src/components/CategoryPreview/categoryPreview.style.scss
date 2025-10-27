@@ -4,9 +4,25 @@
   margin-bottom: 30px;
 
   .title {
-    font-size: 28px;
-    margin-bottom: 25px;
-    cursor: pointer;
+     font-size: 28px;
+  margin-bottom: 25px;
+  cursor: pointer;
+  text-decoration: none; // Removes underline by default
+  color: #333; // Neutral color for readability
+  transition: all 0.3s ease;
+
+  &:hover {
+    font-size: 32px;
+    font-weight: bold;
+    color: #007bff; // Bright color on hover (blue is common for links)
+    text-decoration: underline; // Adds underline on hover
+  }
+
+  &:active {
+    color: #0056b3; // Slightly darker shade when clicked
+  }
+
+
   }
 
   .preview {

@@ -1,39 +1,32 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState, useEffect } from 'react';
+// import { getCategoriesAndDocuments } from '../utils/firebase.utils'; // Adjust path
 import { getCategoriesAndDocuments } from "../utils/firebase/firebase.utils";
-// import SHOP_DATA from "../shop-data.js";
-// import { addCollectionAndDocuments } from "../utils/firebase/firebase.utils.js";
+
 
 export const ProductContext = createContext({
-    categoriesMap: {},
+  categoriesMap: {},
+  isLoading: false,
 });
 
-export const  ProductsProvider = ({children}) => {
-    const [categoriesMap, setCategoriesMap] = useState({});
+export const ProductProvider = ({ children }) => {
+  const [categoriesMap, setCategoriesMap] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
-    // FOR CREATING THE COLLECTION IN DB
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const categoryMap = await getCategoriesAndDocuments();
+        setCategoriesMap(categoryMap);
+      } catch (error) {
+        console.error('Error in ProductProvider fetch:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchCategories();
+  }, []);
 
-    // useEffect(()=> {
-    //     addCollectionAndDocuments('categories', SHOP_DATA)
-    // }, [])
+  const value = { categoriesMap, isLoading };
 
-      useEffect(() => {
-        const getCategoriesMap = async () => {
-            try {
-                const categoryMap = await getCategoriesAndDocuments();
-            console.log(categoryMap);
-
-                setCategoriesMap(categoryMap); // Update state with categoryMap
-            } catch (error) {
-                console.error("Error fetching categories:", error);
-            }
-        };
-        getCategoriesMap();
-    }, []);
-    const value = { categoriesMap };
-
-    return (
-        <ProductContext.Provider value={value}>
-            {children}
-        </ProductContext.Provider>
-    )
-}
+  return <ProductContext.Provider value={value}>{children}</ProductContext.Provider>;
+};
