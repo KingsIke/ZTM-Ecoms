@@ -1,4 +1,3 @@
-// src/components/CategoriesPreview/CategoriesPreview.jsx
 import { Fragment, useContext } from "react";
 import { ProductContext } from "../../contexts/products.context";
 import CategoryPreview from '../../components/CategoryPreview/CategoryPreview.jsx';
