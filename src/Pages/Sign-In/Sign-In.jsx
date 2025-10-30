@@ -4,9 +4,8 @@ import { signInWithGooglePopup,  signInAuthUserWithEmailAndPassword, linkEmailAn
 
 import FormInput from '../FormInput/Form-input';
 import "./Sign-in.scss"
-import Button, {BUTTON_TYPE_CLASSES} from '../../components/Button/Button.component.jsx';
 import { toast } from 'react-toastify';
-
+import Button, {BUTTON_TYPE_CLASSES} from '../../components/Button/Button.component';
 
 const defaultFormField = {
     email: '',

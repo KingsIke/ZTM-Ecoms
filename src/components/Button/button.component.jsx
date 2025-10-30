@@ -1,4 +1,3 @@
-// import './button.style.scss'Z
 import { BaseButton, GoogleSignInButton, InvertedButton } from './Button.style.jsx'
 export const BUTTON_TYPE_CLASSES = {
   base: 'base',
