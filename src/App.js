@@ -9,7 +9,8 @@ import Nav from "./Pages/Navigation/Navigation"
 import Authentication from './Pages/Sign-In/authentication';
 import Shop from './Pages/Shop/Shop.component'
 import CheckOut from './Pages/CheckOut/CheckOut';
-// import SignUpForm from './Pages/Sign-up/Sign-up';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -24,6 +25,18 @@ function App() {
 
 
         </Routes>
+         <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
       </Router>
     </React.Fragment >
 
