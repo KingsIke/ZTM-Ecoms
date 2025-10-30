@@ -1,9 +1,14 @@
 import { useContext, useState } from 'react';
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils';
+import { useNavigate } from 'react-router-dom';
+
+import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth, signOutUser } from '../../utils/firebase/firebase.utils';
 import FormInput from '../FormInput/Form-input';
-import "./Sign-up.scss"
-import Button from '../../components/Button/Button.component';
+// import "./Sign-up.scss"
+import {SignUpContainer, SignUpHeader} from "./SignUp.style.jsx"
+import Button, {BUTTON_TYPE_CLASSES} from '../../components/Button/Button.component';
 import { UserContext } from '../../contexts/user.context';
+import { toast } from 'react-toastify';
+
 
 
 const defaultFormField = {
@@ -17,6 +22,8 @@ const SignUpForm = () => {
     const { displayName, email, password, confirmPassword } = formField;
 
     const {setCurrentUser} = useContext(UserContext)
+  const navigate = useNavigate();
+
 
     console.log('hit')
 
@@ -32,17 +39,24 @@ const SignUpForm = () => {
 
         }
         const { user } = await createAuthUserWithEmailAndPassword(email, password)
-        setCurrentUser(user)
+              await signOutUser();
+        
+        setCurrentUser(null)
         
         await createUserDocumentFromAuth(user, { displayName })
             resetFormFields()
-        } catch (error) {
-            if (error.code === 'auth/email-already-in-use') {
-                alert('Cannot create user, Email already in Use')
-            } else {
 
-                console.log('User creation encountered Error', error)
-            }
+             toast.success('Account created successfully! Please sign in.');
+                  setTimeout(() => navigate('/authentication'), 1000);
+        } catch (error) {
+             if (error.code === 'auth/email-already-in-use') {
+        toast.error('Email already in use!');
+      } else if (error.code === 'auth/weak-password') {
+        toast.error('Password should be at least 6 characters.');
+      } else {
+        console.error('User creation error:', error);
+        toast.error('An unexpected error occurred. Please try again.');
+      }
         }
     }
 
@@ -51,8 +65,10 @@ const SignUpForm = () => {
         setFormField({ ...formField, [name]: value })
     }
     return (
-        <div className="sign-up-container">
-            <h2>Don't have an account?</h2>
+        <SignUpContainer>
+
+        
+            <SignUpHeader>Don't have an account?</SignUpHeader>
             <span>Sign up with your email and password</span>
             <form onSubmit={handleSubmit}>
                 <FormInput
@@ -90,9 +106,9 @@ const SignUpForm = () => {
                     name="confirmPassword"
                     value={confirmPassword}
                 />
-                <Button buttonType={'inverted'} type="submit">Sign Up</Button>
+                <Button buttonType={BUTTON_TYPE_CLASSES.inverted} type="submit">Sign Up</Button>
             </form >
-        </div>
+       </SignUpContainer>
     )
 }
 

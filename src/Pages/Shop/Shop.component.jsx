@@ -33,23 +33,6 @@
 // // };
 // // export default Shop;
 
-
-// // src/routes/Shop/Shop.jsx
-// import { Routes, Route } from "react-router-dom";
-// import CategoryPreview from "../../components/CategoryPreviewComponent/CategoryPreview.jsx";
-// import Category from "../Categories/Category.jsx";
-
-// const Shop = () => {
-//   return (
-//     <Routes>
-//       <Route index element={<CategoryPreview />} />
-//       <Route path=":category" element={<Category />} />
-//     </Routes>
-//   );
-// };
-
-// export default Shop;
-// src/routes/Shop/Shop.jsx
 import { Routes, Route } from "react-router-dom";
 import CategoriesPreview from "../../Pages/Categories/CategoriesPreview.jsx";
 

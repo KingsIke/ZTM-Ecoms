@@ -1,11 +1,12 @@
 import { useState } from 'react';
-
-import { createAuthUserWithEmailAndPassword,signInWithGooglePopup,  createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword, linkEmailAndPasswordToGoogleAccount  } from '../../utils/firebase/firebase.utils';
+import { useNavigate } from 'react-router-dom';
+import { signInWithGooglePopup,  signInAuthUserWithEmailAndPassword, linkEmailAndPasswordToGoogleAccount  } from '../../utils/firebase/firebase.utils';
 
 import FormInput from '../FormInput/Form-input';
 import "./Sign-in.scss"
-import Button from '../../components/Button/Button.component';
-import { UserContext } from '../../contexts/user.context';
+import Button, {BUTTON_TYPE_CLASSES} from '../../components/Button/Button.component';
+import { toast } from 'react-toastify';
+
 
 const defaultFormField = {
     email: '',
@@ -15,6 +16,7 @@ const SignInForm = () => {
     const [formField, setFormField] = useState(defaultFormField)
     const { email, password } = formField
 
+  const navigate = useNavigate();
 
 
     const resetFormFields = () => {
@@ -28,19 +30,21 @@ const SignInForm = () => {
           console.log("User authenticated:", user);
         //   setCurrentUser(user)
             resetFormFields()
+                  toast.success(`Welcome back, ${user.email}!`);
+      setTimeout(() => navigate('/'), 1000);
+            
         } catch (error) {
             console.error("Error signing in", error);
-            alert(`Authentication failed: ${error.message}`);
             switch (error.code) {
-                case 'auth/wrong-password':
-                    alert("The password is incorrect");
-                    break;
-                case 'auth/user-not-found':
-                    alert("No user found with this email.");
-                    break;
-                default:
-                    alert("An error occurred. Please try again.");
-            }
+                    case 'auth/wrong-password':
+                      toast.error('Incorrect password');
+                      break;
+                    case 'auth/user-not-found':
+                      toast.error('No user found with this email.');
+                      break;
+                    default:
+                      toast.error('Authentication failed. Please try again.');
+                  }
         }
     }
 
@@ -54,18 +58,20 @@ const SignInForm = () => {
           await signInWithGooglePopup();
         //   setCurrentUser(user)
         //   await createUserDocumentFromAuth(user);
-      
+       toast.success(`Welcome`);
+            // resetFormFields();
+            setTimeout(() => navigate('/'), 1000);
           // Now try linking the email/password
           if (email && password) {
-            await linkEmailAndPasswordToGoogleAccount(email, password);
-            alert("Email and password successfully linked to your Google account!");
-          } else {
-            alert("Google sign-in successful. To link email/password, fill in both fields and click Google Sign-In again.");
+                  await linkEmailAndPasswordToGoogleAccount(email, password);
+                  toast.success('Email and password linked to your Google account!');
+                } else {
+            toast.success("Google sign-in successful. To link email/password, fill in both fields and click Google Sign-In again.");
           }
         } catch (error) {
-          console.error("Error during Google sign-in or linking", error);
-          alert(`Google sign-in or linking failed: ${error.message}`);
-        }
+           console.error('Error during Google sign-in or linking', error);
+                toast.error(`Google sign-in failed: ${error.message}`);
+              }
       };
       
     return (
@@ -93,9 +99,9 @@ const SignInForm = () => {
                 />
                 <div className='buttons-container'>
 
-                <Button buttonType='inverted' type="submit">Sign In</Button>
+                <Button buttonType={BUTTON_TYPE_CLASSES.base} type="submit">Sign In</Button>
                 
-                <Button buttonType='google' onClick={logInGoogleUser} type='button' >Google Sign in</Button>
+                <Button buttonType={BUTTON_TYPE_CLASSES.google} onClick={logInGoogleUser} type='button' >Google Sign in</Button>
 
                 </div>
             
