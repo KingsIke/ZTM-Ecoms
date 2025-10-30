@@ -5,7 +5,7 @@ import CartItem from '../CartItem/CartItem';
 
 
 
-import Button from '../Button/Button.component';
+import Button from '../Button/button.component.jsx';
 import './cartDropDown.styles.scss';
 import {CartDropContainer, EmptyMessage, CartItems} from  './CartDropDown.style.jsx';
 import { useNavigate } from 'react-router-dom';

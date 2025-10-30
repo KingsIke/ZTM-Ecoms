@@ -13,8 +13,7 @@ const firebaseConfig = {
 
 // // Initialize Firebase
 
-
-const firebaseApp = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
@@ -50,7 +49,7 @@ export const getCategoriesAndDocuments = async () => {
       acc[title.toLowerCase()] = items;
       return acc;
     }, {});
-    console.log('Generated categoryMap:', categoryMap); // Debug
+    console.log('Generated categoryMap:', categoryMap);
     return categoryMap;
   } catch (error) {
     console.error('Error fetching categories:', error);
@@ -111,7 +110,6 @@ export const signOutUser = async () => {
 export const onAuthStateChangedListener = (callback) => {
   return onAuthStateChanged(auth, callback);
 };
-// const firebaseApp = initializeApp(firebaseConfig);
 
 // const googleProvider = new GoogleAuthProvider();
 

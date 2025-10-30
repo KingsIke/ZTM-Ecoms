@@ -5,7 +5,7 @@ import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth, signOut
 import FormInput from '../FormInput/Form-input';
 // import "./Sign-up.scss"
 import {SignUpContainer, SignUpHeader} from "./SignUp.style.jsx"
-import Button, {BUTTON_TYPE_CLASSES} from '../../components/Button/Button.component';
+import Button, {BUTTON_TYPE_CLASSES} from '../../components/Button/button.component.jsx';
 import { UserContext } from '../../contexts/user.context';
 import { toast } from 'react-toastify';
 
