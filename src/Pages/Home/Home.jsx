@@ -1,6 +1,3 @@
-// 74
-// import './categories.style.scss';
-// import CategoryItem from './components/category-item/category-item.component';
 import Directory from "../../components/Directory/Directory.component";
 
 function Home() {

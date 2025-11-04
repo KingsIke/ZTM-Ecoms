@@ -1,19 +1,34 @@
 import styled from "styled-components";
 import { BaseButton, GoogleSignInButton, InvertedButton } from '../Button/Button.style.jsx'
 
+
 export const CartDropContainer = styled.div`
   position: absolute;
-  width: 240px;
-  height: 340px;
+  width: 280px;
+  max-height: 80vh;
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  border: 1px solid black;
-  background-color: white;
-  top: 90px;
-  right: 40px;
-  z-index: 5;
-  
+  padding: 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  top: 80px;
+  right: 10px;
+  z-index: 1000;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  animation: slideDown 0.3s ease-out;
+
+  @media (max-width: 425px) {
+    width: calc(100vw - 32px);
+    left: 16px;
+    right: 16px;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+    
  ${BaseButton}, 
  ${GoogleSignInButton}, 
  ${InvertedButton} {
@@ -26,8 +41,16 @@ export const EmptyMessage = styled.span`
 `;
 
 export const CartItems = styled.div`
-    height: 240px;
-    display: flex;
-    flex-direction: column;
-    overflow: scroll;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 8px;
+  margin-bottom: 16px;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+  }
 `;

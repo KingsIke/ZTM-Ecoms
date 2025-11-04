@@ -9,16 +9,32 @@ import Button from '../Button/button.component.jsx';
 import './cartDropDown.styles.scss';
 import {CartDropContainer, EmptyMessage, CartItems} from  './CartDropDown.style.jsx';
 import { useNavigate } from 'react-router-dom';
+// import Skeleton from '../Skeleton/Skeleton';
+
 
 
 
 const CartDropdown = () => {
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, isCartOpen, isLoading } = useContext(CartContext);
   const navigate = useNavigate()
+  if (!isCartOpen) return null;
+
   return (
    <CartDropContainer>
       <CartItems>
-        {cartItems.length ? (
+         {isLoading ? (
+                  <>
+                    {Array.from({ length: 3 }).map((_, i) => (
+                      <div key={i} className="cart-item-skeleton">
+                        {/* <Skeleton width="60px" height="60px" /> */}
+                        <div style={{ flex: 1, marginLeft: 12 }}>
+                          {/* <Skeleton width="80%" height="16px" /> */}
+                          {/* <Skeleton width="50%" height="14px" /> */}
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                ) :cartItems.length ? (
           cartItems.map((cartItem) => (
             <CartItem key={cartItem.id} cartItem={cartItem} />
           ))

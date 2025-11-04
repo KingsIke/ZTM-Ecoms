@@ -1,11 +1,4 @@
-body {
-  margin: 0;
-  font-family: 'Open Sans Condensed',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  padding: 20px 40px;
-}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -19,4 +12,35 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+/* src/styles/_variables.scss */
+:root {
+  --bg: #ffffff;
+  --text: #000000;
+  --card-bg: #f9f9f9;
+  --border: #ddd;
+  --primary: #e91e63;
+  --total: #000;
+}
+
+body.dark-mode {
+  --bg: #121212;
+  --text: #e0e0e0;
+  --card-bg: #1e1e1e;
+  --border: #333;
+  --primary: #ff4081;
+  --total: #fff;
+}
+
+body {
+  margin: 0;
+  font-family: 'Open Sans Condensed',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 20px 40px;
+   background: var(--bg);
+  color: var(--text);
+   transition: background-color 0.3s ease, color 0.3s ease;
 }

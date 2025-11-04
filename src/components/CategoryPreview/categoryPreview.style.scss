@@ -7,19 +7,19 @@
      font-size: 28px;
   margin-bottom: 25px;
   cursor: pointer;
-  text-decoration: none; // Removes underline by default
-  color: #333; // Neutral color for readability
+  text-decoration: none;
+  color: #333; 
   transition: all 0.3s ease;
 
   &:hover {
     font-size: 32px;
     font-weight: bold;
-    color: #007bff; // Bright color on hover (blue is common for links)
-    text-decoration: underline; // Adds underline on hover
+    color: #007bff; 
+    text-decoration: underline;
   }
 
   &:active {
-    color: #0056b3; // Slightly darker shade when clicked
+    color: #0056b3; 
   }
 
 
@@ -29,5 +29,39 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 20px;
+  }
+}
+
+@media (max-width: 425px) {
+  .category-preview-container {
+    .preview {
+      grid-template-columns: 1fr;
+    }
+    .title {
+      font-size: 24px;
+      text-align: center;
+    }
+  }
+}
+
+@media (min-width: 426px) and (max-width: 768px) {
+  .category-preview-container {
+    .preview {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .title {
+      font-size: 28px;
+    }
+  }
+}
+
+
+.dark-mode {
+  .category-preview-container .title {
+    color: #fff;
+
+    &:hover {
+      color: #0fff07;
+    }
   }
 }

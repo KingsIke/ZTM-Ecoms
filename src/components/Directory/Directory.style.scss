@@ -1,6 +1,24 @@
 .directory-container {
-    width: 100%;
-    display:inline-flex;
-    flex-wrap: wrap;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px 16px;
+  gap: 16px;
 
+  @media (max-width: 425px) {
+    flex-direction: column;
+    padding: 16px 12px;
+    gap: 12px;
   }
+
+
+  @media (min-width: 426px) and (max-width: 768px) {
+    justify-content: space-between;
+  }
+}
+
+
+.dark-mode .directory-container {
+  background: var(--bg);
+}
