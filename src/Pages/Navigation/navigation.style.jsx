@@ -89,4 +89,7 @@ export const ModeLabel = styled.span`
   color: inherit;
   font-size: 14px;
   user-select: none;
+    @media (max-width: 435px) {
+    display: none;
+  }
 `;

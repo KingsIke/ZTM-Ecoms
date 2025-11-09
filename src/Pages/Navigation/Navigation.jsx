@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ReactComponent as NavLogo } from "../../assets/crown.svg";
 import {
   NavigationContainer,
@@ -9,7 +9,7 @@ import {
   ToggleSwitch,
   ToggleInput,
   Slider,
-  ModeLabel
+  ModeLabel,
 } from "./navigation.style.jsx";
 import CartIcon from "../../components/CartIcon/CartIcon";
 import CardDropDown from "../../components/CartDropdown/CardDropDown";
@@ -21,7 +21,7 @@ import { useTheme } from "../../contexts/theme.context";
 
 const Navigation = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
-  const { isCartOpen } = useContext(CartContext);
+  const { isCartOpen, setIsCartOpen } = useContext(CartContext);
   const { isDark, toggleDarkMode } = useTheme();
 
   const signOutHandler = async () => {
@@ -29,6 +29,23 @@ const Navigation = () => {
     setCurrentUser(null);
   };
   console.log(currentUser);
+  
+
+    useEffect(() => {
+      const handleClickOutside = (e) => {
+        if (
+          isCartOpen &&
+          !e.target.closest(".cart-icon-container") &&
+          !e.target.closest('[role="dialog"]')
+        ) {
+          setIsCartOpen(false);
+        }
+      };
+      document.addEventListener("click", handleClickOutside);
+      return () => document.removeEventListener("click", handleClickOutside);
+    }, [isCartOpen, setIsCartOpen]);
+
+
   return (
     <NavigationContainer style={{
         backgroundColor: isDark ? "#222" : "#fff",
