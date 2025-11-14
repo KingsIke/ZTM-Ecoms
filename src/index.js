@@ -1,23 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import './index.scss';
-import reportWebVitals from './reportWebVitals';
-import { UserProvider } from './contexts/user.context';
-import { ProductProvider } from './contexts/products.context';
-import { CartProvider } from './contexts/cart.context';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./index.scss";
+import reportWebVitals from "./reportWebVitals";
+//import { UserProvider } from "./contexts/user.context";
+import { ProductProvider } from "./contexts/products.context";
+import { CartProvider } from "./contexts/cart.context";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-  <UserProvider>
-  <ProductProvider>
-    <CartProvider>
-
-    <App />
-</CartProvider>
-  </ProductProvider>
-  </UserProvider>
+    <Provider store={store}>
+     {/* <UserProvider> /*/}
+        <ProductProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </ProductProvider>
+     {/* </UserProvider>*/}
+    </Provider>
   </React.StrictMode>
 );
 

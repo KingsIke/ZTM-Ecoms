@@ -1,4 +1,5 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { ReactComponent as NavLogo } from "../../assets/crown.svg";
 import {
   NavigationContainer,
@@ -13,20 +14,25 @@ import {
 } from "./navigation.style.jsx";
 import CartIcon from "../../components/CartIcon/CartIcon";
 import CardDropDown from "../../components/CartDropdown/CardDropDown";
-import { UserContext } from "../../contexts/user.context";
+//import { UserContext } from "../../contexts/user.context";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import { CartContext } from "../../contexts/cart.context";
 import { useTheme } from "../../contexts/theme.context";
-
+import {selectCurrentUser} from '../../store/user/user.selector';
+import { setCurrentUser } from "../../store/user/user.action.js";
 
 const Navigation = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+ // const { currentUser, setCurrentUser } = useContext(UserContext);
+  const currentUser = useSelector(selectCurrentUser);
   const { isCartOpen, setIsCartOpen } = useContext(CartContext);
   const { isDark, toggleDarkMode } = useTheme();
+  const dispatch = useDispatch();
 
   const signOutHandler = async () => {
     await signOutUser();
-    setCurrentUser(null);
+    //setCurrentUser(null);
+      dispatch(setCurrentUser(null));
+    
   };
   console.log(currentUser);
   
